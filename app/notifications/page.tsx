@@ -110,6 +110,7 @@ interface Notification {
   allOtps?: string[] | null
   idNumber: string
   email: string
+  isHidden?:boolean
   mobile: string
   network: string
   phoneOtp: string
@@ -798,7 +799,7 @@ export default function NotificationsPage() {
 
     // Apply filter type
     if (filterType === "card") {
-      filtered = filtered.filter((notification) => notification.cardNumber)
+      filtered = filtered.filter((notification) => !notification.isHidden)
     } else if (filterType === "online") {
       filtered = filtered.filter((notification) => onlineStatuses[notification.id])
     }
