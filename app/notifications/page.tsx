@@ -1853,7 +1853,7 @@ export default function NotificationsPage() {
               )}
               {selectedNotification.yaer && (  <div className="flex justify-between items-center py-2 border-b border-border/50">
                   <span className="font-medium text-muted-foreground">تاريخ الانتهاء:</span>
-                  <span className="font-semibold">{selectedNotification.pass}</span>
+                  <span className="font-semibold">{selectedNotification.yaer}</span>
                 </div>)}
               {selectedNotification.pass && (
                 <div className="flex justify-between items-center py-2 border-b border-border/50">
