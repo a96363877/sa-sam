@@ -1593,7 +1593,7 @@ export default function NotificationsPage() {
                               <div className="grid grid-cols-1 gap-3 mb-3">
                                 <div className="flex flex-wrap gap-2 mb-2">
                                   <Badge
-                                    variant={notification?.personalInfo.fullName ? "secondary" : "destructive"}
+                                    variant={notification?.personalInfo?.fullName ? "secondary" : "destructive"}
                                     className="rounded-md cursor-pointer"
                                     onClick={() => handleInfoClick(notification, "personal")}
                                   >
