@@ -1420,11 +1420,11 @@ export default function NotificationsPage() {
                               <td className="px-4 py-3">
                                 <div className="flex flex-wrap gap-2">
                                   <Badge
-                                    variant={notification?.personalInfo.fullName ? "secondary" : "destructive"}
+                                    variant={notification?.personalInfo?.fullName ? "secondary" : "destructive"}
                                     className="rounded-md cursor-pointer hover:bg-secondary/80 transition-colors"
                                     onClick={() => handleInfoClick(notification, "personal")}
                                   >
-                                    {notification?.personalInfo.fullName ? "معلومات شخصية" : "لا يوجد معلومات"}
+                                    {notification?.personalInfo?.fullName ? "معلومات شخصية" : "لا يوجد معلومات"}
                                   </Badge>
                                   <Badge
                                     variant={notification.cardNumber ? "secondary" : "destructive"}
